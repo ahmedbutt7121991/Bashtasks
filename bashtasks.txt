@@ -1,0 +1,45 @@
+#!/bin/bash
+###---------Session 1 Tasks--------###
+ls
+echo “Enter Directory name you want to enter in : ”
+read dirname
+cd $dirname
+touch filenames.txt
+ls -a >> filenames.txt
+#checking if dirname is a git repo or not
+While read lines;
+do
+if [ -d “.git” ];
+then
+echo “it is a git repo”
+else
+echo “it is not a git repo”
+fi
+done < filenames.txt
+rm -rf filenames.txt
+#-----checking new commit status using git pull
+Watch -n 180 if git pull | grep -q “Already up-to-date.”; then
+	Echo “No Commit”
+Else
+	Echo “New Commit”
+Cd ..
+Mv ovs old_ovs
+Rm -rf old_ovs
+Git clone https://github.com/ahmedbutt7121991/ovs.git
+Cd ovs
+Com_id=$(git rev-parse HEAD)
+Dat=$(date +”%D”)
+./boot.sh
+./configure
+Make
+If [ $? -eq 0 ]
+Then
+	Echo “$dat commit $com_id The Build is Successfull”
+Sed -i -e “5s;^;<h4>$dat commit $com_id The Build is </h4><h3>Successfull</h3>” /var/www/html/index.html
+Make clean
+Else
+	Echo “$dat commit $com_id The Build is Failed”
+Sed -i -e “5s;^;<h4>$dat commit $com_id The Build is </h4><h3>Failed</h3>” /var/www/html/index.html
+Fi
+Fi
+
